@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Holiday.com.au</title>
+    @*@Styles.Render("~/Content/css")*@
+    @Styles.Render("~/Content/themes/base/css", "~/Content/css")
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jquerydatatable")
+    @Scripts.Render("~/Scripts/angular.js")
+    @Scripts.Render("~/Scripts/myscript.js")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body>
+    <div class="navbar navbar-custom navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+                    <img src="@Url.Content("~/Images/logo.png")" title="title" alt="additional title" height="35" />
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="Home" class="text-uppercase">@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li id="About" class="text-uppercase">@Html.ActionLink("About Us", "About", "Home")</li>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle text-uppercase" href="#">Holiday Management</a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li class="text-uppercase">@Html.ActionLink("Customer Management","Index", "Customer")</li>
+                            <li class="text-uppercase">@Html.ActionLink("Trip Management", "Index", "Trip")</li>
+                            <li class="text-uppercase">@Html.ActionLink("Order Management", "Index", "Order")</li>                  
+                        </ul>
+                    </li>
+                    @*<li id="Customer Management" class="text-uppercase">@Html.ActionLink("Customer Management", "Index", "Customer")</li>*@
+                    <li id="Documentation" class="text-uppercase">@Html.ActionLink("Documentation", "Documentation", "Home")</li>
+                    <li id="Contact" class="text-uppercase">@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        @RenderBody()
+        <hr />
+        <footer class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <table>
+                        <tr>
+                            <td rowspan="2">
+                                <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+                                    <img src="@Url.Content("~/Images/logo.png")" title="title" alt="additional title" height="40" />
+                                </a>
+                            </td>
+                            <td>
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                1900 000 000
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                <a href="mailto:enquiry@holiday.com.au">
+                                    enquiry@holiday.com.au
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                &copy; Copyright @DateTime.Now.Year - Holiday.com.au
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </footer>
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,70 @@
+﻿@model Assignment_2.Models.Trip
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <h2>Details</h2>
+
+    <div>
+        <h4>Trip</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.From)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.From)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.To)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.To)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TripStartDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TripStartDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TripEndDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TripEndDate)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.TripId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>

@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HolidayDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustID" />
+    </Key>
+    <Property Name="CustID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustFName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CustLName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CustDOB" Type="DateTime" Precision="0" />
+    <Property Name="CustGender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="CustStreet" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CustState" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="CustPostalCD" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="CustPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CustMobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CustEmail" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CustRemark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CustRegisterdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
+    <NavigationProperty Name="State" Relationship="HolidayDBModel.FK_CUSTOMER_STATE" FromRole="Customer" ToRole="State" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderNo" />
+    </Key>
+    <Property Name="OrderNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CustID" Type="Int32" Nullable="false" />
+    <Property Name="TripID" Type="Int32" Nullable="false" />
+    <Property Name="No_Of_Pass" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
+    <NavigationProperty Name="Trip" Relationship="Self.FK_Order_Trip" FromRole="Order" ToRole="Trip" />
+  </EntityType>
+  <EntityType Name="Trip">
+    <Key>
+      <PropertyRef Name="TripId" />
+    </Key>
+    <Property Name="TripId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="From" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="To" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+    <Property Name="TripStartDate" Type="DateTime" Precision="0" />
+    <Property Name="TripEndDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Trip" FromRole="Trip" ToRole="Order" />
+  </EntityType>
+  <Association Name="FK_Order_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CustID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Trip">
+    <End Role="Trip" Type="Self.Trip" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trip">
+        <PropertyRef Name="TripId" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="TripID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HolidayDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Trips" EntityType="Self.Trip" />
+    <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Trip" Association="Self.FK_Order_Trip">
+      <End Role="Trip" EntitySet="Trips" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <EntitySet Name="States" EntityType="HolidayDBModel.State" />
+    <AssociationSet Name="FK_CUSTOMER_STATE" Association="HolidayDBModel.FK_CUSTOMER_STATE">
+      <End Role="State" EntitySet="States" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="StateCD" />
+    </Key>
+    <Property Name="StateCD" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="StateName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Customers" Relationship="HolidayDBModel.FK_CUSTOMER_STATE" FromRole="State" ToRole="Customer" />
+  </EntityType>
+  <Association Name="FK_CUSTOMER_STATE">
+    <End Type="HolidayDBModel.State" Role="State" Multiplicity="0..1" />
+    <End Type="HolidayDBModel.Customer" Role="Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="StateCD" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="CustState" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

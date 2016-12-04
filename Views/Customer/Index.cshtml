@@ -1,0 +1,163 @@
+﻿@model IEnumerable<Assignment_2.Models.Customer>
+
+@{
+    ViewBag.Title = "Customer Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Customer Management</h2>
+
+    <p>
+        @using (Html.BeginForm("Index", "Customer", FormMethod.Get))
+        {    
+            <div class="row">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <a class="btn btn-primary" href="@Url.Action("Create", "Customer")">
+                                Create New
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="searchFirstName">First Name:</label>
+                            @Html.TextBox("firstName", null, new { @class = "form-control", @placeholder = "Enter First Name", @id = "searchFirstName" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="searchLastName">Last Name:</label>
+                            @Html.TextBox("lastName", null, new { @class = "form-control", @placeholder = "Enter Last Name", @id = "searchLastName" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="searchMobile">Mobile:</label>
+                            @Html.TextBox("mobile", null, new { @class = "form-control", @placeholder = "Enter Mobile Number", @id = "searchMobile" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @*@Html.ActionLink("Create New", "Create")*@
+    </p>
+    <table class="table">
+        <thead class="table-active">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustFName)
+                    <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustLName)
+                    <i class="fa fa-sort" aria-hidden="true"></i>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustDOB)
+                    <i class="fa fa-sort" aria-hidden="true"></i>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustGenderDesc)
+                    <i class="fa fa-sort" aria-hidden="true"></i>
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.CustStreet)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CustState)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CustPostalCD)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CustPhone)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.CustMobile)
+                    <i class="fa fa-sort" aria-hidden="true"></i>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustEmail)
+                    <i class="fa fa-sort" aria-hidden="true"></i>
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.CustRemark)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CustRegisterdDate)
+                    </th>*@
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustFName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustLName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustDOB)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustGenderDesc)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.CustStreet)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CustState)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CustPostalCD)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CustPhone)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustMobile)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustEmail)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.CustRemark)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CustRegisterdDate)
+                        </td>*@
+                    <td>
+                        <a href="@Url.Action("Edit", "Customer", new { id = item.CustID })">
+                            Edit
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a> |
+                        <a href="@Url.Action("Details", "Customer", new { id = item.CustID })">
+                            Details
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        </a> |
+                        <a href="@Url.Action("Delete", "Customer", new { id = item.CustID })">
+                            Delete
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.CustID }) |*@
+                        @*@Html.ActionLink("Details", "Details", new { id = item.CustID }) |*@
+                        @*@Html.ActionLink("Delete", "Delete", new { id = item.CustID })*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
